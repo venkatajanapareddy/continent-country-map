@@ -9,15 +9,17 @@ on:
     branches: [main]
 
 jobs:
+  # Lint, build, and test the project across multiple Node.js versions
   test:
     name: Test on Node.js ${{ matrix.node-version }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [18.x, 20.x, 22.x]
+      fail-fast: true
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Node.js ${{ matrix.node-version }}
@@ -41,6 +43,7 @@ jobs:
       - name: Run tests with coverage
         run: NODE_OPTIONS="--experimental-vm-modules" npm run test:coverage
 
+  # Publish to NPM when a new version tag is pushed
   publish:
     name: Publish to NPM
     needs: test
@@ -48,10 +51,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js 22.x
+      - name: Set up Node.js 22.x for publishing
         uses: actions/setup-node@v4
         with:
           node-version: '22.x'
@@ -66,9 +69,12 @@ jobs:
 
       - name: Verify package version matches tag
         run: |
+          # Extract version from tag (v1.0.0 -> 1.0.0)
           TAG_VERSION=${GITHUB_REF#refs/tags/v}
+          # Get version from package.json
           PACKAGE_VERSION=$(node -p "require('./package.json').version")
 
+          # Verify versions match
           if [ "$TAG_VERSION" != "$PACKAGE_VERSION" ]; then
             echo "Error: Tag version ($TAG_VERSION) does not match package.json version ($PACKAGE_VERSION)"
             exit 1
@@ -76,10 +82,20 @@ jobs:
 
           echo "Version verified: $PACKAGE_VERSION"
 
-      - name: Verify package
+      - name: Verify package contents
         run: |
+          # Pack the package to see what would be published
           npm pack
           ls -la *.tgz
+
+          # Optional: Extract and examine contents
+          mkdir -p __package_contents
+          tar -xzf *.tgz -C __package_contents
+          echo "Package contents:"
+          find __package_contents/package -type f | sort
+
+      - name: Run tests one final time before publishing
+        run: NODE_OPTIONS="--experimental-vm-modules" npm run test
 
       - name: Publish to NPM
         run: npm publish --access public
