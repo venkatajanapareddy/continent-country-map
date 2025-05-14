@@ -1,0 +1,67 @@
+{
+  "name": "continent-country-map",
+  "version": "1.0.0",
+  "description": "A clean, reliable dataset mapping continents to their respective countries using ISO 3166 alpha-2 codes.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vitest",
+    "build": "tsup",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint src tests --ext .ts",
+    "format": "prettier --write \"**/*.{ts,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,json,md}\"",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.ts": "eslint --fix",
+    "*.{ts,json,md,yml}": "prettier --write"
+  },
+  "keywords": [
+    "continent",
+    "country",
+    "map",
+    "iso-3166",
+    "alpha-2",
+    "geolocation",
+    "dataset",
+    "typescript",
+    "geography"
+  ],
+  "author": "Venkata Phanindra Kumar Janapareddy",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/venkatajanapareddy/continent-country-map.git"
+  },
+  "bugs": {
+    "url": "https://github.com/venkatajanapareddy/continent-country-map/issues"
+  },
+  "homepage": "https://github.com/venkatajanapareddy/continent-country-map#readme",
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "@typescript-eslint/eslint-plugin": "^7.1.0",
+    "@typescript-eslint/parser": "^7.1.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^16.0.0",
+    "prettier": "^3.2.5",
+    "tsup": "^8.0.2",
+    "typescript": "^5.3.3",
+    "vitest": "^1.3.1"
+  }
+}
