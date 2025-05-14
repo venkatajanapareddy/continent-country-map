@@ -2,7 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/continent-country-map.svg)](https://www.npmjs.com/package/continent-country-map)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![CI Status](https://github.com/venkatajanapareddy/continent-country-map/workflows/CI/badge.svg)](https://github.com/venkatajanapareddy/continent-country-map/actions)
+[![CI/CD Status](https://github.com/venkatajanapareddy/continent-country-map/workflows/CI%2FCD/badge.svg)](https://github.com/venkatajanapareddy/continent-country-map/actions)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 
 A modern, well-tested, and developer-friendly TypeScript library providing a clean and reliable dataset mapping continents to their respective countries using ISO 3166-1 alpha-2 codes. Perfect for dashboards, forms, filters, and geolocation-based logic.
